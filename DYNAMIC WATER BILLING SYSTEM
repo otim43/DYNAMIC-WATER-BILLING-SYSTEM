@@ -1,17 +1,16 @@
 #include <iostream>
 
+using namespace std;
+
 int main() {
-    double balance, waterUnits, totalCost, surcharge, vat, remainingBalance;
+    double amountLoaded, waterUnits, totalCost, balance, vat;
 
-    // prompt user to input the amount of money loaded onto their account
-    cout << "Enter the amount of money loaded onto your account (UGX): ";
-    cin >> balance;
+    cout << "Enter the amount of money loaded onto your account: ";
+    cin >> amountLoaded;
 
-    // prompt user to input the number of water units consumed
     cout << "Enter the number of water units consumed: ";
     cin >> waterUnits;
 
-    // calculate the total cost based on the tiered pricing structure
     if (waterUnits <= 10) {
         totalCost = waterUnits * 150;
     } else if (waterUnits <= 20) {
@@ -20,20 +19,15 @@ int main() {
         totalCost = 10 * 150 + 10 * 175 + (waterUnits - 20) * 200;
     }
 
-    // apply the 15% surcharge
-    surcharge = totalCost * 0.15;
-    totalCost += surcharge;
+    totalCost += totalCost * 0.15; // apply 15% surcharge
+    vat = totalCost * 0.18; // calculate VAT
+    totalCost += vat; // add VAT to total cost
 
-    // apply the 18% VAT
-    vat = totalCost * 0.18;
-    totalCost += vat;
-
-    // check whether the user's balance is sufficient to cover the total cost
-    if (balance >= totalCost) {
-        remainingBalance = balance - totalCost;
-        cout << "Transaction successful. Remaining balance: " << remainingBalance << " UGX" << endl;
+    if (amountLoaded >= totalCost) {
+        balance = amountLoaded - totalCost;
+        cout << "Transaction successful. Your remaining balance is: " << balance << endl;
     } else {
-        cout << "Error: Insufficient balance. Remaining balance: " << balance << " UGX" << endl;
+        cout << "Insufficient balance. Your balance is: " << amountLoaded << endl;
     }
 
     return 0;
